@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX POST请求</title>
+    <style>
+        #result {
+            width: 200px;
+            height: 100px;
+            border: solid 1px #90b;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="result"></div>
+    <script>
+        const result = document.getElementById('result');
+        result.addEventListener('mouseover', function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000/server');
+            // 设置请求头
+            // 预定义请求头
+            // Content-Type可以用来设置请求题内容类型
+            // application/x-www-form-urlencoded将Request Payload设置成了表单
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // 自定义请求头
+            xhr.setRequestHeader('name', 'afuya');
+
+            // xhr.send();
+            // get请求方式在open方法的url中设置请求行（请求参数）
+            // post请求方式在send方法中设置请求体
+            // 在Request Payload中查看请求体参数
+            xhr.send('username=admin&password=123');
+            // xhr.send('username:admin&password:123');
+            // xhr.send('123456');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
